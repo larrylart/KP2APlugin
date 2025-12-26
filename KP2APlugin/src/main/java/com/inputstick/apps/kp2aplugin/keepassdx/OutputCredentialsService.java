@@ -26,7 +26,7 @@ public class OutputCredentialsService extends Service {
     private static final int RC_DISABLED     = -3;
     private static final int RC_EMPTY        = -8;
 
-    // Adjust these to match your KeePassDX-kb package(s)
+    // Adjust these to match your KeePassDX-kb package(s) 
     private static final String[] ALLOWED_CALLER_PREFIXES = new String[] {
             "com.kunzisoft.keepass" // KeePassDX flavors share 
     };

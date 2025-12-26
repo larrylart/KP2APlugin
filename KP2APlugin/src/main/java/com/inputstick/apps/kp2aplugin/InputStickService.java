@@ -757,7 +757,7 @@ public class InputStickService extends Service implements InputStickStateListene
 				String layoutCode = intent.getStringExtra(Const.EXTRA_LAYOUT);
 				TypingParams params = new TypingParams(layoutCode, defaultTypingSpeed);
 				
-				// AIDL direct text (KeePassDX)
+				// AIDL direct text (KeePassDX) - test 
 				if (Const.ACTION_DIRECT_TEXT.equals(uiAction)) {
 					String text = intent.getStringExtra(Const.EXTRA_TEXT);
 					if (text != null && text.length() > 0) {
