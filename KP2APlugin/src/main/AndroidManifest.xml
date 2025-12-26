@@ -48,6 +48,16 @@
             </intent-filter>
         </receiver>
 
+        <!-- KeePassDX -->
+        <service
+            android:name=".keepassdx.OutputCredentialsService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="org.keepassdx.intent.action.OUTPUT_CREDENTIALS_SERVICE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
         <service
             android:name=".InputStickService"
             android:enabled="true"

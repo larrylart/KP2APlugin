@@ -21,6 +21,17 @@ android {
             }
         }
     }
+
+    buildFeatures {
+        aidl true
+    }
+
+    sourceSets {
+        main {
+            aidl.srcDirs = ['src/main/aidl']
+        }
+    }
+
     namespace 'com.inputstick.apps.kp2aplugin'
 }
 

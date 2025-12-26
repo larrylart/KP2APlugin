@@ -586,7 +586,8 @@ public class InputStickService extends Service implements InputStickStateListene
 		if (hasPermissionToExecuteAction(uiAction)) {
 			if (Const.ACTION_MASKED_PASSWORD.equals(uiAction)) {
 				connectAction();
-				ActionHelper.startMaskedPasswordActivity(this, entryData.getPassword(), params, true);
+				ActionHelper.startMaskedPasswordActivity(this, entryData.getPassword(), params, true);					
+				
 			} else if (Const.ACTION_SETTINGS.equals(uiAction)) {
 				ActionHelper.startSettingsActivityAction(this);
 			} else if (Const.ACTION_SHOW_ALL.equals(uiAction)) {
@@ -755,9 +756,36 @@ public class InputStickService extends Service implements InputStickStateListene
 				String uiAction = intent.getStringExtra(Const.EXTRA_ACTION);
 				String layoutCode = intent.getStringExtra(Const.EXTRA_LAYOUT);
 				TypingParams params = new TypingParams(layoutCode, defaultTypingSpeed);
+				
+				// AIDL direct text (KeePassDX)
+				if (Const.ACTION_DIRECT_TEXT.equals(uiAction)) {
+					String text = intent.getStringExtra(Const.EXTRA_TEXT);
+					if (text != null && text.length() > 0) {
+						connectAction();               // important for cold start
+						queueText(text, params, true); // same queue path as other typing
+					}
+					return START_STICKY;
+				}			
+				
 				EntryData entryData = new EntryData(intent);
 				entryAction(uiAction, entryData, params);
 				// Toast.makeText(this, R.string.text_plugin_restarted, Toast.LENGTH_LONG).show();
+
+			} else if (Const.ACTION_DIRECT_TEXT.equals(action)) { // larry add
+				String text = intent.getStringExtra(Const.EXTRA_TEXT);
+				String layout = intent.getStringExtra(Const.EXTRA_LAYOUT);
+
+				if (text == null) text = "";
+				if (layout == null) layout = Const.PREF_LAYOUT_VALUE; // or whatever your default is
+
+				TypingParams params = new TypingParams(layout, defaultTypingSpeed);
+
+				// Optional: if you want to force connect attempt immediately
+				// connectAction();
+
+				// Use the same queue mechanism as other actions
+				queueText(text, params, true);
+				
 			} else if (Const.SERVICE_RESTART.equals(action)) {
 				if (cnt == 0) {
 					Toast.makeText(this, R.string.text_plugin_restarted, Toast.LENGTH_LONG).show();

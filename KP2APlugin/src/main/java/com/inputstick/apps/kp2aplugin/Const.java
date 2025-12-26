@@ -335,5 +335,7 @@ public class Const {
 	public static final String PREF_TWEAKS_SHOW_DEBUG_MESSAGES = "show_debug_messages";
 	public static final boolean PREF_TWEAKS_SHOW_DEBUG_MESSAGES_VALUE = false;
 
+	// larry
+	public static final String ACTION_DIRECT_TEXT = "com.inputstick.apps.kp2aplugin.ACTION_DIRECT_TEXT";
 	
 }
